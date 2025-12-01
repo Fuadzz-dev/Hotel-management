@@ -7,5 +7,53 @@ public class Room {
     private double pricePerDay;
     private String status; // AVAILABLE, OCCUPIED, MAINTENANCE
 
-    // constructors, getters, setters
+    public Room() {}
+
+    public Room(int id, String roomNumber, String roomType, double pricePerDay, String status) {
+        this.id = id;
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.pricePerDay = pricePerDay;
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
+    public double getPricePerDay() {
+        return pricePerDay;
+    }
+
+    public void setPricePerDay(double pricePerDay) {
+        this.pricePerDay = pricePerDay;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
