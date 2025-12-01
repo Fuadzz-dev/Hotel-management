@@ -1,11 +1,21 @@
 package main.java.com.hotel.ui.admin;
 
-import com.hotel.dao.ReservationDAO;
-import com.hotel.model.Reservation;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import main.java.com.hotel.dao.ReservationDAO;
+import main.java.com.hotel.model.Reservation;
 
 public class UserInfoFrame extends JFrame {
     private JTable table;

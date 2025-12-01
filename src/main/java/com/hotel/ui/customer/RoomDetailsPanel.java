@@ -1,10 +1,13 @@
 package main.java.com.hotel.ui.customer;
 
-import com.hotel.dao.RoomDAO;
-import com.hotel.model.Room;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.util.List;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import main.java.com.hotel.dao.RoomDAO;
+import main.java.com.hotel.model.Room;
 
 public class RoomDetailsPanel extends JScrollPane {
     private JTable table;

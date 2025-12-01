@@ -1,8 +1,18 @@
 package main.java.com.hotel.ui.admin;
 
-import com.hotel.model.User;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import main.java.com.hotel.model.User;
 
 public class AdminHomeFrame extends JFrame {
     private User user;
@@ -74,7 +84,7 @@ public class AdminHomeFrame extends JFrame {
                 JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
                 dispose();
-                new com.hotel.ui.login.LoginFrame().setVisible(true);
+                new main.java.com.hotel.ui.login.LoginFrame().setVisible(true);
             }
         });
     }

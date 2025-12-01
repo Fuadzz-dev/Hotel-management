@@ -1,11 +1,15 @@
 package main.java.com.hotel.dao;
 
-import com.hotel.config.DBConnection;
-import com.hotel.model.Reservation;
-import java.sql.*;
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import main.java.com.hotel.config.DBConnection;
+import main.java.com.hotel.model.Reservation;
 
 public class ReservationDAO {
     

@@ -1,8 +1,12 @@
 package main.java.com.hotel.dao;
 
-import com.hotel.config.DBConnection;
-import com.hotel.model.User;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import main.java.com.hotel.config.DBConnection;
+import main.java.com.hotel.model.User;
 
 public class UserDAO {
     public User login(String username, String password) {

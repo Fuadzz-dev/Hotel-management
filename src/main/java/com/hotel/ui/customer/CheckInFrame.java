@@ -1,15 +1,28 @@
 package main.java.com.hotel.ui.customer;
 
-import com.hotel.dao.ReservationDAO;
-import com.hotel.dao.RoomDAO;
-import com.hotel.model.Reservation;
-import com.hotel.model.Room;
-import com.hotel.model.User;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import main.java.com.hotel.dao.ReservationDAO;
+import main.java.com.hotel.dao.RoomDAO;
+import main.java.com.hotel.model.Reservation;
+import main.java.com.hotel.model.Room;
+import main.java.com.hotel.model.User;
 
 public class CheckInFrame extends JFrame {
     private User user;

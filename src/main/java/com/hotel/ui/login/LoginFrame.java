@@ -1,13 +1,20 @@
 package main.java.com.hotel.ui.login;
 
-import com.hotel.dao.UserDAO;
-import com.hotel.model.User;
-import com.hotel.ui.admin.AdminHomeFrame;
-import com.hotel.ui.customer.CustomerHomeFrame;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import main.java.com.hotel.dao.UserDAO;
+import main.java.com.hotel.model.User;
+import main.java.com.hotel.ui.admin.AdminHomeFrame;
+import main.java.com.hotel.ui.customer.CustomerHomeFrame;
 
 public class LoginFrame extends JFrame {
     private JTextField tfUsername;
