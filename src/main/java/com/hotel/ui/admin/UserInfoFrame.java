@@ -44,10 +44,29 @@ public class UserInfoFrame extends JFrame {
         model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;
+                return column == 6;
             }
         };
         table = new JTable(model);
+        String[] statusOptions = {"BOOKED", "CHECKED_IN", "CHECKED_OUT", "CANCELLED"};
+        javax.swing.JComboBox<String> comboStatus = new javax.swing.JComboBox<>(statusOptions);
+        table.getColumnModel().getColumn(6).setCellEditor(new javax.swing.DefaultCellEditor(comboStatus));
+        model.addTableModelListener(e -> {
+            int row = e.getFirstRow();
+            int column = e.getColumn();
+            // hanya kolom status (index ke 6)
+            if (column == 6) {
+                int reservationId = (int) model.getValueAt(row, 0); // kolom ID
+                String newStatus = (String) model.getValueAt(row, 6);
+                // update DB
+                boolean success = reservationDAO.updateStatus(reservationId, newStatus);
+                if (success) {
+                    System.out.println("Status updated for ID " + reservationId + " to " + newStatus);
+                } else {
+                    System.out.println("Failed to update status!");
+                }
+            }
+        });
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(25);
         JScrollPane scrollPane = new JScrollPane(table);

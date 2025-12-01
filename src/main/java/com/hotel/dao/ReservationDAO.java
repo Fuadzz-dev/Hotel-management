@@ -100,7 +100,7 @@ public class ReservationDAO {
     }
 
     public double getTotalRevenue() {
-        String sql = "SELECT SUM(total_price) as total FROM reservations WHERE status IN ('CHECKED_OUT', 'CHECKED_IN')";
+        String sql = "SELECT COALESCE(SUM(total_price), 0) as total FROM reservations WHERE status = 'CHECKED_OUT'";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {

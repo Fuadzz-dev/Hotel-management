@@ -44,4 +44,18 @@ public class RoomDAO {
         }
         return false;
     }
+
+    public boolean createRoom(String roomNumber, String roomType, double price) {
+        String sql = "INSERT INTO rooms (room_number, room_type, price_per_day, status) VALUES (?, ?, ?, 'AVAILABLE')";
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, roomNumber);
+            ps.setString(2, roomType);
+            ps.setDouble(3, price);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

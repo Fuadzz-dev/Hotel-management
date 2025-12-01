@@ -58,7 +58,7 @@ public class FinanceReportFrame extends JFrame {
         bottomPanel.setBackground(Color.WHITE);
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        lblTotalRevenue = new JLabel("Total Revenue: Rp 0");
+        lblTotalRevenue = new JLabel("Total Revenue:");
         lblTotalRevenue.setFont(new Font("Arial", Font.BOLD, 20));
         lblTotalRevenue.setForeground(new Color(46, 204, 113));
         lblTotalRevenue.setHorizontalAlignment(SwingConstants.CENTER);
@@ -84,6 +84,7 @@ public class FinanceReportFrame extends JFrame {
         List<Reservation> reservations = reservationDAO.findAll();
         
         for (Reservation r : reservations) {
+            if (!"CHECKED_OUT".equals(r.getStatus())) continue;
             model.addRow(new Object[]{
                 r.getId(),
                 r.getUserName(),

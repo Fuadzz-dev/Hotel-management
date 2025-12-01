@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,7 +27,7 @@ public class RoomManagementFrame extends JFrame {
     public RoomManagementFrame() {
         roomDAO = new RoomDAO();
         setTitle("Room Management");
-        setSize(800, 500);
+        setSize(900, 550);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         init();
@@ -45,49 +46,66 @@ public class RoomManagementFrame extends JFrame {
         model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;
+                return column == 4;  // Hanya kolom status yang bisa di-edit
             }
         };
+
         table = new JTable(model);
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(25);
+
+        // ComboBox untuk kolom Status
+        String[] statusOptions = {"AVAILABLE", "OCCUPIED", "MAINTENANCE"};
+        JComboBox<String> comboStatus = new JComboBox<>(statusOptions);
+        table.getColumnModel().getColumn(4).setCellEditor(new javax.swing.DefaultCellEditor(comboStatus));
+
         JScrollPane scrollPane = new JScrollPane(table);
 
+        // Panel tombol
         JPanel buttonPanel = new JPanel(new FlowLayout());
-        JButton btnSetAvailable = new JButton("Set Available");
-        JButton btnSetOccupied = new JButton("Set Occupied");
-        JButton btnSetMaintenance = new JButton("Set Maintenance");
         JButton btnRefresh = new JButton("Refresh");
+        JButton btnAddRoom = new JButton("Add Room");
 
-        btnSetAvailable.setBackground(new Color(46, 204, 113));
-        btnSetOccupied.setBackground(new Color(231, 76, 60));
-        btnSetMaintenance.setBackground(new Color(241, 196, 15));
         btnRefresh.setBackground(new Color(52, 152, 219));
+        btnAddRoom.setBackground(new Color(46, 204, 113));
 
-        for (JButton btn : new JButton[]{btnSetAvailable, btnSetOccupied, btnSetMaintenance, btnRefresh}) {
+        for (JButton btn : new JButton[]{btnRefresh, btnAddRoom}) {
             btn.setForeground(Color.WHITE);
             btn.setFocusPainted(false);
             btn.setFont(new Font("Arial", Font.BOLD, 12));
+            buttonPanel.add(btn);
         }
 
-        buttonPanel.add(btnSetAvailable);
-        buttonPanel.add(btnSetOccupied);
-        buttonPanel.add(btnSetMaintenance);
-        buttonPanel.add(btnRefresh);
+        // Listener tombol
+        btnRefresh.addActionListener(e -> loadData());
+        btnAddRoom.addActionListener(e -> showAddRoomDialog());
+
+        // Listener auto-update status
+        model.addTableModelListener(e -> {
+            int row = e.getFirstRow();
+            int column = e.getColumn();
+
+            if (column == 4) { // Status
+                int roomId = (int) model.getValueAt(row, 0);
+                String newStatus = (String) model.getValueAt(row, 4);
+
+                boolean success = roomDAO.updateStatus(roomId, newStatus);
+                if (!success) {
+                    JOptionPane.showMessageDialog(this, "Failed to update room status!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         add(topPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
-
-        btnSetAvailable.addActionListener(e -> updateRoomStatus("AVAILABLE"));
-        btnSetOccupied.addActionListener(e -> updateRoomStatus("OCCUPIED"));
-        btnSetMaintenance.addActionListener(e -> updateRoomStatus("MAINTENANCE"));
-        btnRefresh.addActionListener(e -> loadData());
     }
 
     private void loadData() {
         model.setRowCount(0);
         List<Room> rooms = roomDAO.findAll();
+
         for (Room r : rooms) {
             model.addRow(new Object[]{
                 r.getId(),
@@ -99,19 +117,33 @@ public class RoomManagementFrame extends JFrame {
         }
     }
 
-    private void updateRoomStatus(String status) {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a room first!", "Warning", JOptionPane.WARNING_MESSAGE);
+    private void showAddRoomDialog() {
+        String roomNumber = JOptionPane.showInputDialog(this, "Enter Room Number:");
+        if (roomNumber == null || roomNumber.trim().isEmpty()) return;
+
+        String[] types = {"STANDARD", "DELUXE", "SUITE"};
+        String roomType = (String) JOptionPane.showInputDialog(
+                this, "Select Room Type:", "Room Type",
+                JOptionPane.QUESTION_MESSAGE, null, types, types[0]
+        );
+
+        String priceInput = JOptionPane.showInputDialog(this, "Enter Price/Day:");
+        if (priceInput == null || priceInput.trim().isEmpty()) return;
+
+        double price;
+        try {
+            price = Double.parseDouble(priceInput);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid price!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        int roomId = (int) model.getValueAt(selectedRow, 0);
-        if (roomDAO.updateStatus(roomId, status)) {
-            JOptionPane.showMessageDialog(this, "Room status updated to " + status);
+        boolean created = roomDAO.createRoom(roomNumber, roomType, price);
+        if (created) {
+            JOptionPane.showMessageDialog(this, "Room added successfully!");
             loadData();
         } else {
-            JOptionPane.showMessageDialog(this, "Failed to update room status", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Failed to add room!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
