@@ -35,7 +35,7 @@ public class RoomDAO {
     public boolean updateStatus(int roomId, String status) {
         String sql = "UPDATE rooms SET status=? WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+            PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, status);
             ps.setInt(2, roomId);
             return ps.executeUpdate() > 0;
