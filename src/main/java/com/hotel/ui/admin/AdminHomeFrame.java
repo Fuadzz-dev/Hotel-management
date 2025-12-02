@@ -115,9 +115,8 @@ public class AdminHomeFrame extends JFrame {
         leftPanel.add(lblAdmin);
 
         // CENTER PANEL - Navigation Buttons (4 TOMBOL)
-        JPanel centerPanel = new JPanel(new GridLayout(1, 4, 10, 0));
+        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 25));
         centerPanel.setOpaque(false);
-
 
         JButton btnRoomMgmt = createNavButton("Room Mgmt", new Color(46, 204, 113));
         JButton btnGuestMgmt = createNavButton("Guest Mgmt", new Color(52, 152, 219));
@@ -130,7 +129,7 @@ public class AdminHomeFrame extends JFrame {
         centerPanel.add(btnFinanceReport);
 
         // RIGHT PANEL - Logout & Close
-        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 25));
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 15));
         rightPanel.setOpaque(false);
 
         JButton btnLogout = createNavButton("Logout", new Color(231, 76, 60));
@@ -190,18 +189,18 @@ public class AdminHomeFrame extends JFrame {
                 super.paintComponent(g);
             }
         };
-        button.setFont(new Font("Arial", Font.BOLD, 12));
+        button.setFont(new Font("Arial", Font.BOLD, 11));
         button.setForeground(Color.WHITE);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(140, 45));
+        button.setPreferredSize(new Dimension(130, 38));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         return button;
     }
 
     private JButton createCloseButton() {
-        JButton button = new JButton() {
+        JButton button = new JButton("✕") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
