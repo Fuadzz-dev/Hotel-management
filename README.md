@@ -209,23 +209,3 @@ hotel-management/
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
-
-- Java Swing Documentation
-- MySQL Documentation
-- Maven Central Repository
-
-## 📞 Contact & Support
-
-Jika Anda menemukan bug atau memiliki saran, silakan buat issue di repository ini.
-
----
-
-<div align="center">
-
-**⭐ Star this repository if you find it helpful!**
-
-Made with ❤️ by Hotel Management Team
-
-</div>
-
