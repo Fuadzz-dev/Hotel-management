@@ -8,7 +8,8 @@ public class User {
     private String role; // ADMIN or CUSTOMER
 
     public User() {}
-    
+
+    // Constructor untuk login result
     public User(int id, String username, String fullName, String role){
         this.id = id; 
         this.username = username; 
@@ -16,6 +17,15 @@ public class User {
         this.role = role;
     }
 
+    // Constructor untuk proses registrasi (tanpa ID)
+    public User(String username, String password, String fullName, String role) {
+        this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+        this.role = role;
+    }
+
+    // Getters & Setters
     public int getId() {
         return id;
     }

@@ -30,21 +30,32 @@ public class LoginFrame extends JFrame {
     }
 
     private void init() {
-        JPanel panel = new JPanel(new GridLayout(4,1,5,5));
-        tfUsername = new JTextField();
-        pfPassword = new JPasswordField();
-        btnLogin = new JButton("Login");
+    JPanel panel = new JPanel(new GridLayout(5, 1, 5, 5)); // ubah jadi 5 baris
+    tfUsername = new JTextField();
+    pfPassword = new JPasswordField();
+    btnLogin = new JButton("Login");
 
-        panel.add(new JLabel("Username:"));
-        panel.add(tfUsername);
-        panel.add(new JLabel("Password:"));
-        panel.add(pfPassword);
+    panel.add(new JLabel("Username:"));
+    panel.add(tfUsername);
+    panel.add(new JLabel("Password:"));
+    panel.add(pfPassword);
 
-        add(panel, BorderLayout.CENTER);
-        add(btnLogin, BorderLayout.SOUTH);
+    // ➤ Tambahkan tombol Register di sini
+    JButton btnRegister = new JButton("Create Account");
+    panel.add(btnRegister);
 
-        btnLogin.addActionListener(e -> doLogin());
-    }
+    add(panel, BorderLayout.CENTER);
+    add(btnLogin, BorderLayout.SOUTH);
+
+    // Aksi tombol Login
+    btnLogin.addActionListener(e -> doLogin());
+
+    // Aksi tombol Register
+    btnRegister.addActionListener(e -> {
+        new RegisterFrame().setVisible(true);
+        this.dispose();
+    });
+}
 
     private void doLogin() {
         String user = tfUsername.getText().trim();
