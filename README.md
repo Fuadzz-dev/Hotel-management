@@ -183,18 +183,24 @@ hotel-management/
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/mughni">
-        <img src="https://github.com/mughni.png" width="100px;" alt="Mughni"/><br />
-        <sub><b>Mughni</b></sub>
+      <a href="https://github.com/Fuadzz-dev">
+        <sub><b>Muh. Fuad Rifai</b></sub>
       </a><br />
-      <sub>Developer</sub>
     </td>
     <td align="center">
-      <a href="https://github.com/adamxyz">
-        <img src="https://github.com/adamxyz.png" width="100px;" alt="Adam XYZ"/><br />
-        <sub><b>Adam XYZ</b></sub>
+      <a href="https://github.com/joslinnn02">
+        <sub><b>Adam Badiilah Anwar</b></sub>
       </a><br />
-      <sub>Developer</sub>
+    </td>
+    <td align="center">
+      <a href="https://github.com/madyamughni1-commits">
+        <sub><b>Mughni Madya Maylafaisya</b></sub>
+      </a><br />
+    </td>
+    <td align="center">
+      <a href="https://github.com/maulinaandinha">
+        <sub><b>Maulina Putri Andinha</b></sub>
+      </a><br />
     </td>
   </tr>
 </table>
@@ -222,3 +228,4 @@ Jika Anda menemukan bug atau memiliki saran, silakan buat issue di repository in
 Made with ❤️ by Hotel Management Team
 
 </div>
+
