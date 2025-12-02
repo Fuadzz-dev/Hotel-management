@@ -105,6 +105,7 @@ public class AdminHomeFrame extends JFrame {
         topBar.setPreferredSize(new Dimension(1400, 100));
         topBar.setOpaque(false);
 
+        // LEFT PANEL - Admin Info
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 20));
         leftPanel.setOpaque(false);
 
@@ -113,19 +114,22 @@ public class AdminHomeFrame extends JFrame {
         lblAdmin.setFont(new Font("Serif", Font.BOLD, 24));
         leftPanel.add(lblAdmin);
 
-        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 25));
+        // CENTER PANEL - Navigation Buttons (4 TOMBOL)
+        JPanel centerPanel = new JPanel(new GridLayout(1, 4, 10, 0));
         centerPanel.setOpaque(false);
 
-        JButton btnRoomMgmt = createNavButton("Room Management", new Color(46, 204, 113));
-        JButton btnGuestMgmt = createNavButton("Guest Management", new Color(52, 152, 219));
-        JButton btnUserInfo = createNavButton("User Info", new Color(52, 152, 219));
-        JButton btnFinanceReport = createNavButton("Finance Report", new Color(155, 89, 182));
+
+        JButton btnRoomMgmt = createNavButton("Room Mgmt", new Color(46, 204, 113));
+        JButton btnGuestMgmt = createNavButton("Guest Mgmt", new Color(52, 152, 219));
+        JButton btnUserInfo = createNavButton("User Info", new Color(155, 89, 182));
+        JButton btnFinanceReport = createNavButton("Finance", new Color(230, 126, 34));
 
         centerPanel.add(btnRoomMgmt);
         centerPanel.add(btnGuestMgmt);
         centerPanel.add(btnUserInfo);
         centerPanel.add(btnFinanceReport);
 
+        // RIGHT PANEL - Logout & Close
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 25));
         rightPanel.setOpaque(false);
 
@@ -139,6 +143,7 @@ public class AdminHomeFrame extends JFrame {
         topBar.add(centerPanel, BorderLayout.CENTER);
         topBar.add(rightPanel, BorderLayout.EAST);
 
+        // ===== EVENT LISTENERS =====
         btnRoomMgmt.addActionListener(e -> new RoomManagementFrame().setVisible(true));
         btnGuestMgmt.addActionListener(e -> new GuestManagementFrame().setVisible(true));
         btnUserInfo.addActionListener(e -> new UserInfoFrame().setVisible(true));
@@ -185,18 +190,18 @@ public class AdminHomeFrame extends JFrame {
                 super.paintComponent(g);
             }
         };
-        button.setFont(new Font("Arial", Font.BOLD, 13));
+        button.setFont(new Font("Arial", Font.BOLD, 12));
         button.setForeground(Color.WHITE);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(180, 45));
+        button.setPreferredSize(new Dimension(140, 45));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         return button;
     }
 
     private JButton createCloseButton() {
-        JButton button = new JButton("✕") {
+        JButton button = new JButton() {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
