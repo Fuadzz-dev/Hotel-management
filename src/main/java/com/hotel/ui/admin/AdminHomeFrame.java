@@ -20,14 +20,12 @@ public class AdminHomeFrame extends JFrame {
     }
 
     private void init() {
-        // Main panel dengan overlay
         JPanel mainPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                
                 g2d.setColor(new Color(0, 0, 0, 120));
                 g2d.fillRect(0, 0, getWidth(), getHeight());
             }
@@ -35,17 +33,14 @@ public class AdminHomeFrame extends JFrame {
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setOpaque(false);
 
-        // Top bar
         JPanel topBar = createTopBar();
 
-        // Welcome center panel
         contentPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                
                 g2d.setColor(new Color(0, 0, 0, 80));
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
             }
@@ -94,72 +89,45 @@ public class AdminHomeFrame extends JFrame {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                
+
                 GradientPaint gradient = new GradientPaint(
                     0, 0, new Color(20, 20, 30, 230),
                     0, getHeight(), new Color(40, 40, 50, 230)
                 );
                 g2d.setPaint(gradient);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
-                
+
                 g2d.setColor(new Color(212, 175, 55));
-                g2d.fillRect(0, getHeight()-3, getWidth(), 3);
+                g2d.fillRect(0, getHeight() - 3, getWidth(), 3);
             }
         };
         topBar.setLayout(new BorderLayout());
         topBar.setPreferredSize(new Dimension(1400, 100));
         topBar.setOpaque(false);
 
-        // Left: Admin title
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 20));
         leftPanel.setOpaque(false);
-        
+
         JLabel lblAdmin = new JLabel("👑 Admin Panel - " + user.getFullName());
         lblAdmin.setForeground(new Color(212, 175, 55));
         lblAdmin.setFont(new Font("Serif", Font.BOLD, 24));
         leftPanel.add(lblAdmin);
 
-<<<<<<< HEAD
-        JButton btnRoomMgmt = new JButton("Room Management");
-        JButton btnGuestMgmt = new JButton("Guest Management"); // ✅ BARU
-        JButton btnUserInfo = new JButton("User Info");
-        JButton btnFinanceReport = new JButton("Finance Report");
-        JButton btnLogout = new JButton("Logout");
-
-        btnRoomMgmt.setBackground(new Color(46, 204, 113));
-        btnGuestMgmt.setBackground(new Color(52, 152, 219)); // ✅ BARU
-        btnUserInfo.setBackground(new Color(155, 89, 182));
-        btnFinanceReport.setBackground(new Color(243, 156, 18));
-        btnLogout.setBackground(new Color(231, 76, 60));
-
-        for (JButton btn : new JButton[]{btnRoomMgmt, btnGuestMgmt, btnUserInfo, btnFinanceReport, btnLogout}) {
-            btn.setForeground(Color.WHITE);
-            btn.setFocusPainted(false);
-            btn.setFont(new Font("Arial", Font.BOLD, 12));
-        }
-
-        topPanel.add(btnRoomMgmt);
-        topPanel.add(btnGuestMgmt); // ✅ BARU
-        topPanel.add(btnUserInfo);
-        topPanel.add(btnFinanceReport);
-        topPanel.add(btnLogout);
-=======
-        // Center: Navigation
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 25));
         centerPanel.setOpaque(false);
 
         JButton btnRoomMgmt = createNavButton("🏨 Room Management", new Color(46, 204, 113));
+        JButton btnGuestMgmt = createNavButton("🛎 Guest Management", new Color(52, 152, 219));
         JButton btnUserInfo = createNavButton("👥 User Info", new Color(52, 152, 219));
         JButton btnFinanceReport = createNavButton("💰 Finance Report", new Color(155, 89, 182));
 
         centerPanel.add(btnRoomMgmt);
+        centerPanel.add(btnGuestMgmt);
         centerPanel.add(btnUserInfo);
         centerPanel.add(btnFinanceReport);
 
-        // Right: Logout and Close
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 25));
         rightPanel.setOpaque(false);
->>>>>>> 34d4407 (update dari mela)
 
         JButton btnLogout = createNavButton("🚪 Logout", new Color(231, 76, 60));
         JButton btnClose = createCloseButton();
@@ -171,29 +139,18 @@ public class AdminHomeFrame extends JFrame {
         topBar.add(centerPanel, BorderLayout.CENTER);
         topBar.add(rightPanel, BorderLayout.EAST);
 
-        // Event listeners
-        btnRoomMgmt.addActionListener(e -> {
-            new RoomManagementFrame().setVisible(true);
-        });
-
-        // ✅ BARU: Tombol Guest Management
-        btnGuestMgmt.addActionListener(e -> {
-            new GuestManagementFrame().setVisible(true);
-        });
-
-        btnUserInfo.addActionListener(e -> {
-            new UserInfoFrame().setVisible(true);
-        });
-
-        btnFinanceReport.addActionListener(e -> {
-            new FinanceReportFrame().setVisible(true);
-        });
+        btnRoomMgmt.addActionListener(e -> new RoomManagementFrame().setVisible(true));
+        btnGuestMgmt.addActionListener(e -> new GuestManagementFrame().setVisible(true));
+        btnUserInfo.addActionListener(e -> new UserInfoFrame().setVisible(true));
+        btnFinanceReport.addActionListener(e -> new FinanceReportFrame().setVisible(true));
 
         btnLogout.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, 
-                "Are you sure you want to logout?", 
-                "Logout Confirmation", 
-                JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to logout?",
+                "Logout Confirmation",
+                JOptionPane.YES_NO_OPTION
+            );
             if (confirm == JOptionPane.YES_OPTION) {
                 dispose();
                 new main.java.com.hotel.ui.login.LoginFrame().setVisible(true);
@@ -209,7 +166,7 @@ public class AdminHomeFrame extends JFrame {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                
+
                 if (getModel().isPressed()) {
                     g2d.setColor(color.darker().darker());
                 } else if (getModel().isRollover()) {
@@ -218,13 +175,13 @@ public class AdminHomeFrame extends JFrame {
                     g2d.setColor(color);
                 }
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-                
+
                 if (getModel().isRollover()) {
                     g2d.setColor(new Color(212, 175, 55));
                     g2d.setStroke(new BasicStroke(2));
-                    g2d.drawRoundRect(1, 1, getWidth()-2, getHeight()-2, 15, 15);
+                    g2d.drawRoundRect(1, 1, getWidth() - 2, getHeight() - 2, 15, 15);
                 }
-                
+
                 super.paintComponent(g);
             }
         };
@@ -244,7 +201,7 @@ public class AdminHomeFrame extends JFrame {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                
+
                 if (getModel().isPressed()) {
                     g2d.setColor(new Color(192, 57, 43));
                 } else if (getModel().isRollover()) {
@@ -253,7 +210,7 @@ public class AdminHomeFrame extends JFrame {
                     g2d.setColor(new Color(231, 76, 60, 150));
                 }
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
-                
+
                 super.paintComponent(g);
             }
         };
