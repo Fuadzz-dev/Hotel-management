@@ -116,10 +116,10 @@ public class AdminHomeFrame extends JFrame {
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 25));
         centerPanel.setOpaque(false);
 
-        JButton btnRoomMgmt = createNavButton("🏨 Room Management", new Color(46, 204, 113));
-        JButton btnGuestMgmt = createNavButton("🛎 Guest Management", new Color(52, 152, 219));
-        JButton btnUserInfo = createNavButton("👥 User Info", new Color(52, 152, 219));
-        JButton btnFinanceReport = createNavButton("💰 Finance Report", new Color(155, 89, 182));
+        JButton btnRoomMgmt = createNavButton("Room Management", new Color(46, 204, 113));
+        JButton btnGuestMgmt = createNavButton("Guest Management", new Color(52, 152, 219));
+        JButton btnUserInfo = createNavButton("User Info", new Color(52, 152, 219));
+        JButton btnFinanceReport = createNavButton("Finance Report", new Color(155, 89, 182));
 
         centerPanel.add(btnRoomMgmt);
         centerPanel.add(btnGuestMgmt);
@@ -129,7 +129,7 @@ public class AdminHomeFrame extends JFrame {
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 25));
         rightPanel.setOpaque(false);
 
-        JButton btnLogout = createNavButton("🚪 Logout", new Color(231, 76, 60));
+        JButton btnLogout = createNavButton("Logout", new Color(231, 76, 60));
         JButton btnClose = createCloseButton();
 
         rightPanel.add(btnLogout);

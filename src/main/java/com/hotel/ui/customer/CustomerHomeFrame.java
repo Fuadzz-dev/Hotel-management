@@ -99,10 +99,10 @@ public class CustomerHomeFrame extends JFrame {
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 25));
         centerPanel.setOpaque(false);
 
-        JButton btnRoomDetails = createNavButton("🏨 Room Details", new Color(52, 152, 219));
-        JButton btnSearchRooms = createNavButton("🔎 Search Rooms", new Color(46, 204, 113)); // ← Tombol baru
-        JButton btnCheckIn = createNavButton("📋 Check In", new Color(26, 188, 156));
-        JButton btnHistory = createNavButton("📜 History", new Color(155, 89, 182));
+        JButton btnRoomDetails = createNavButton("Room Details", new Color(52, 152, 219));
+        JButton btnSearchRooms = createNavButton("Search Rooms", new Color(46, 204, 113)); // ← Tombol baru
+        JButton btnCheckIn = createNavButton("Check In", new Color(26, 188, 156));
+        JButton btnHistory = createNavButton("History", new Color(155, 89, 182));
 
         centerPanel.add(btnRoomDetails);
         centerPanel.add(btnSearchRooms); // ← Tambahkan ke UI
@@ -113,7 +113,7 @@ public class CustomerHomeFrame extends JFrame {
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 25));
         rightPanel.setOpaque(false);
 
-        JButton btnLogout = createNavButton("🚪 Logout", new Color(231, 76, 60));
+        JButton btnLogout = createNavButton("Logout", new Color(231, 76, 60));
         JButton btnClose = createCloseButton();
 
         rightPanel.add(btnLogout);

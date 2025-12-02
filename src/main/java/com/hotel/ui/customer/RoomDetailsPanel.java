@@ -44,13 +44,13 @@ public class RoomDetailsPanel extends JScrollPane {
             
             switch(status) {
                 case "AVAILABLE":
-                    statusDisplay = "✅ " + status;
+                    statusDisplay = status;
                     break;
                 case "OCCUPIED":
-                    statusDisplay = "🔒 " + status;
+                    statusDisplay = status;
                     break;
                 case "MAINTENANCE":
-                    statusDisplay = "🔧 " + status;
+                    statusDisplay = status;
                     break;
             }
             
