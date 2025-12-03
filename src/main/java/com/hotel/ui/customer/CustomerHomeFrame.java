@@ -35,22 +35,25 @@ public class CustomerHomeFrame extends JFrame {
         top.add(lblWelcome);
         
         JButton btnRoomDetails = new JButton("Room Details");
+        JButton btnSearchRooms = new JButton("Search Rooms"); // ✅ BARU
         JButton btnCheckIn = new JButton("Check In");
         JButton btnHistory = new JButton("Check History");
         JButton btnLogout = new JButton("Logout");
 
         btnRoomDetails.setBackground(new Color(52, 152, 219));
-        btnCheckIn.setBackground(new Color(46, 204, 113));
+        btnSearchRooms.setBackground(new Color(46, 204, 113)); // ✅ BARU
+        btnCheckIn.setBackground(new Color(26, 188, 156));
         btnHistory.setBackground(new Color(155, 89, 182));
         btnLogout.setBackground(new Color(231, 76, 60));
 
-        for (JButton btn : new JButton[]{btnRoomDetails, btnCheckIn, btnHistory, btnLogout}) {
+        for (JButton btn : new JButton[]{btnRoomDetails, btnSearchRooms, btnCheckIn, btnHistory, btnLogout}) {
             btn.setForeground(Color.WHITE);
             btn.setFocusPainted(false);
             btn.setFont(new Font("Arial", Font.BOLD, 12));
         }
 
         top.add(btnRoomDetails);
+        top.add(btnSearchRooms); // ✅ BARU
         top.add(btnCheckIn);
         top.add(btnHistory);
         top.add(btnLogout);
@@ -63,6 +66,15 @@ public class CustomerHomeFrame extends JFrame {
             getContentPane().removeAll();
             add(top, BorderLayout.NORTH);
             add(new RoomDetailsPanel(), BorderLayout.CENTER);
+            revalidate(); 
+            repaint();
+        });
+
+        // ✅ BARU: Tombol Search Rooms
+        btnSearchRooms.addActionListener(e -> {
+            getContentPane().removeAll();
+            add(top, BorderLayout.NORTH);
+            add(new RoomSearchPanel(), BorderLayout.CENTER);
             revalidate(); 
             repaint();
         });

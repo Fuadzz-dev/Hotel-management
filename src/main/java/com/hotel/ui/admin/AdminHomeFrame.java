@@ -36,22 +36,25 @@ public class AdminHomeFrame extends JFrame {
         topPanel.add(lblWelcome);
 
         JButton btnRoomMgmt = new JButton("Room Management");
+        JButton btnGuestMgmt = new JButton("Guest Management"); // ✅ BARU
         JButton btnUserInfo = new JButton("User Info");
         JButton btnFinanceReport = new JButton("Finance Report");
         JButton btnLogout = new JButton("Logout");
 
         btnRoomMgmt.setBackground(new Color(46, 204, 113));
-        btnUserInfo.setBackground(new Color(52, 152, 219));
-        btnFinanceReport.setBackground(new Color(155, 89, 182));
+        btnGuestMgmt.setBackground(new Color(52, 152, 219)); // ✅ BARU
+        btnUserInfo.setBackground(new Color(155, 89, 182));
+        btnFinanceReport.setBackground(new Color(243, 156, 18));
         btnLogout.setBackground(new Color(231, 76, 60));
 
-        for (JButton btn : new JButton[]{btnRoomMgmt, btnUserInfo, btnFinanceReport, btnLogout}) {
+        for (JButton btn : new JButton[]{btnRoomMgmt, btnGuestMgmt, btnUserInfo, btnFinanceReport, btnLogout}) {
             btn.setForeground(Color.WHITE);
             btn.setFocusPainted(false);
             btn.setFont(new Font("Arial", Font.BOLD, 12));
         }
 
         topPanel.add(btnRoomMgmt);
+        topPanel.add(btnGuestMgmt); // ✅ BARU
         topPanel.add(btnUserInfo);
         topPanel.add(btnFinanceReport);
         topPanel.add(btnLogout);
@@ -67,6 +70,11 @@ public class AdminHomeFrame extends JFrame {
 
         btnRoomMgmt.addActionListener(e -> {
             new RoomManagementFrame().setVisible(true);
+        });
+
+        // ✅ BARU: Tombol Guest Management
+        btnGuestMgmt.addActionListener(e -> {
+            new GuestManagementFrame().setVisible(true);
         });
 
         btnUserInfo.addActionListener(e -> {

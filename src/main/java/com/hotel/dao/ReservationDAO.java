@@ -86,13 +86,44 @@ public class ReservationDAO {
         return list;
     }
 
+    // ===== PERBAIKAN BUG DI SINI =====
     public boolean updateStatus(int reservationId, String status) {
+        // Step 1: Ambil room_id dari reservation
+        int roomId = 0;
+        String sqlGetRoom = "SELECT room_id FROM reservations WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlGetRoom)) {
+            ps.setInt(1, reservationId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                roomId = rs.getInt("room_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        
+        // Step 2: Update status reservation
         String sql = "UPDATE reservations SET status = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, status);
             ps.setInt(2, reservationId);
-            return ps.executeUpdate() > 0;
+            boolean updated = ps.executeUpdate() > 0;
+            
+            // Step 3: Update status room otomatis
+            if (updated && roomId > 0) {
+                RoomDAO roomDAO = new RoomDAO();
+                if ("CHECKED_OUT".equals(status) || "CANCELLED".equals(status)) {
+                    // Kalau checkout atau cancel, kamar jadi AVAILABLE lagi
+                    roomDAO.updateStatus(roomId, "AVAILABLE");
+                } else if ("CHECKED_IN".equals(status) || "BOOKED".equals(status)) {
+                    // Kalau checkin atau booked, kamar jadi OCCUPIED
+                    roomDAO.updateStatus(roomId, "OCCUPIED");
+                }
+            }
+            
+            return updated;
         } catch (SQLException e) {
             e.printStackTrace();
         }
