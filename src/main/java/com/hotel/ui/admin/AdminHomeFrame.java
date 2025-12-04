@@ -1,8 +1,28 @@
 package main.java.com.hotel.ui.admin;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
+import java.awt.RenderingHints;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import main.java.com.hotel.model.User;
 
 public class AdminHomeFrame extends JFrame {
@@ -63,7 +83,7 @@ public class AdminHomeFrame extends JFrame {
         lblSubtitle.setForeground(new Color(255, 255, 255, 200));
         lblSubtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel lblDivider = new JLabel("━━━━━━━━━━━━━━━━━━━━");
+        JLabel lblDivider = new JLabel("");
         lblDivider.setFont(new Font("Arial", Font.PLAIN, 20));
         lblDivider.setForeground(new Color(212, 175, 55, 150));
         lblDivider.setAlignmentX(Component.CENTER_ALIGNMENT);

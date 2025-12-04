@@ -1,273 +1,185 @@
 package main.java.com.hotel.ui.login;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
 import main.java.com.hotel.dao.UserDAO;
 import main.java.com.hotel.model.User;
+import main.java.com.hotel.ui.components.LuxuryUIComponents;
 
 public class RegisterFrame extends JFrame {
-    private JTextField txtUsername, txtFullName;
-    private JPasswordField txtPassword;
-    private UserDAO userDAO;
+
+    private JTextField tfFullName;
+    private JTextField tfUsername;
+    private JPasswordField pfPassword;
+    private JButton btnRegister;
+    private JButton btnLogin;
 
     public RegisterFrame() {
-        userDAO = new UserDAO();
-        setTitle("Create Luxury Account");
-        setSize(1200, 700);
+        setTitle("Luxury Hotel Management - Register");
+        setSize(500, 650);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
+
+        getContentPane().setBackground(LuxuryUIComponents.DARK_NAVY);
+
         init();
     }
 
     private void init() {
-        // Main panel dengan overlay
-        JPanel mainPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                
-                // Overlay gelap
-                g2d.setColor(new Color(0, 0, 0, 150));
-                g2d.fillRect(0, 0, getWidth(), getHeight());
-            }
-        };
-        mainPanel.setLayout(new GridBagLayout());
-        mainPanel.setOpaque(false);
-
-        // Register card
-        JPanel registerCard = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                
-                g2d.setColor(new Color(255, 255, 255, 25));
-                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
-                
-                g2d.setColor(new Color(212, 175, 55, 100));
-                g2d.setStroke(new BasicStroke(2));
-                g2d.drawRoundRect(1, 1, getWidth()-2, getHeight()-2, 30, 30);
-            }
-        };
-        registerCard.setLayout(new BorderLayout(0, 30));
-        registerCard.setOpaque(false);
-        registerCard.setBorder(new EmptyBorder(50, 60, 50, 60));
-        registerCard.setPreferredSize(new Dimension(450, 600));
-
-        // Header
-        JPanel headerPanel = new JPanel();
-        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
-        headerPanel.setOpaque(false);
-        
-        JLabel lblTitle = new JLabel("CREATE ACCOUNT");
-        lblTitle.setFont(new Font("Serif", Font.BOLD, 38));
-        lblTitle.setForeground(new Color(212, 175, 55));
-        lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        JLabel lblSubtitle = new JLabel("Join Our Luxury Experience");
-        lblSubtitle.setFont(new Font("Arial", Font.PLAIN, 15));
-        lblSubtitle.setForeground(new Color(255, 255, 255, 200));
-        lblSubtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        JLabel lblDivider = new JLabel("━━━━━━━━━━");
-        lblDivider.setFont(new Font("Arial", Font.PLAIN, 16));
-        lblDivider.setForeground(new Color(212, 175, 55, 150));
-        lblDivider.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        headerPanel.add(lblTitle);
-        headerPanel.add(Box.createVerticalStrut(8));
-        headerPanel.add(lblSubtitle);
-        headerPanel.add(Box.createVerticalStrut(10));
-        headerPanel.add(lblDivider);
-
-        // Form panel
-        JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridBagLayout());
-        formPanel.setOpaque(false);
+        setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 0, 10, 0);
+        gbc.insets = new Insets(10, 20, 10, 20);
 
-        // Full Name
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        JLabel lblFullName = new JLabel("Full Name");
-        lblFullName.setFont(new Font("Arial", Font.BOLD, 14));
-        lblFullName.setForeground(new Color(255, 255, 255, 220));
-        formPanel.add(lblFullName, gbc);
+        // Main Panel
+        JPanel mainPanel = LuxuryUIComponents.createLuxuryPanel();
+        mainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints panelGbc = new GridBagConstraints();
+        panelGbc.insets = new Insets(15, 25, 15, 25);
+        panelGbc.fill = GridBagConstraints.HORIZONTAL;
 
-        gbc.gridy = 1;
-        txtFullName = createStyledTextField();
-        formPanel.add(txtFullName, gbc);
+        // Logo
+        panelGbc.gridx = 0;
+        panelGbc.gridy = 0;
+        panelGbc.gridwidth = 2;
+        JLabel lblLogo = new JLabel("📝", SwingConstants.CENTER);
+        lblLogo.setFont(new Font("Serif", Font.PLAIN, 60));
+        lblLogo.setForeground(LuxuryUIComponents.GOLD);
+        mainPanel.add(lblLogo, panelGbc);
+
+        // Title
+        panelGbc.gridy = 1;
+        JLabel lblTitle = LuxuryUIComponents.createTitleLabel("CREATE ACCOUNT");
+        mainPanel.add(lblTitle, panelGbc);
+
+        // Subtitle
+        panelGbc.gridy = 2;
+        JLabel lblSubtitle = new JLabel("Join Luxury Hotel", SwingConstants.CENTER);
+        lblSubtitle.setFont(LuxuryUIComponents.SUBTITLE_FONT);
+        lblSubtitle.setForeground(LuxuryUIComponents.CREAM);
+        mainPanel.add(lblSubtitle, panelGbc);
+
+        // Spacing
+        panelGbc.gridy = 3;
+        mainPanel.add(Box.createVerticalStrut(20), panelGbc);
+
+        // Fullname
+        panelGbc.gridy = 4;
+        panelGbc.gridwidth = 1;
+        JLabel lblFullName = LuxuryUIComponents.createLabel("Full Name");
+        mainPanel.add(lblFullName, panelGbc);
+
+        panelGbc.gridy = 5;
+        panelGbc.gridwidth = 2;
+        tfFullName = LuxuryUIComponents.createLuxuryTextField();
+        tfFullName.setPreferredSize(new Dimension(300, 40));
+        mainPanel.add(tfFullName, panelGbc);
 
         // Username
-        gbc.gridy = 2;
-        JLabel lblUsername = new JLabel("Username");
-        lblUsername.setFont(new Font("Arial", Font.BOLD, 14));
-        lblUsername.setForeground(new Color(255, 255, 255, 220));
-        formPanel.add(lblUsername, gbc);
+        panelGbc.gridy = 6;
+        panelGbc.gridwidth = 1;
+        JLabel lblUsername = LuxuryUIComponents.createLabel("Username");
+        mainPanel.add(lblUsername, panelGbc);
 
-        gbc.gridy = 3;
-        txtUsername = createStyledTextField();
-        formPanel.add(txtUsername, gbc);
+        panelGbc.gridy = 7;
+        panelGbc.gridwidth = 2;
+        tfUsername = LuxuryUIComponents.createLuxuryTextField();
+        tfUsername.setPreferredSize(new Dimension(300, 40));
+        mainPanel.add(tfUsername, panelGbc);
 
         // Password
-        gbc.gridy = 4;
-        JLabel lblPassword = new JLabel("Password");
-        lblPassword.setFont(new Font("Arial", Font.BOLD, 14));
-        lblPassword.setForeground(new Color(255, 255, 255, 220));
-        formPanel.add(lblPassword, gbc);
+        panelGbc.gridy = 8;
+        panelGbc.gridwidth = 1;
+        JLabel lblPassword = LuxuryUIComponents.createLabel("Password");
+        mainPanel.add(lblPassword, panelGbc);
 
-        gbc.gridy = 5;
-        txtPassword = createStyledPasswordField();
-        formPanel.add(txtPassword, gbc);
+        panelGbc.gridy = 9;
+        panelGbc.gridwidth = 2;
+        pfPassword = LuxuryUIComponents.createLuxuryPasswordField();
+        pfPassword.setPreferredSize(new Dimension(300, 40));
+        mainPanel.add(pfPassword, panelGbc);
 
-        // Buttons
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 15));
-        buttonPanel.setOpaque(false);
+        // Spacing
+        panelGbc.gridy = 10;
+        mainPanel.add(Box.createVerticalStrut(20), panelGbc);
 
-        JButton btnRegister = createLuxuryButton("REGISTER NOW", new Color(46, 204, 113), new Color(39, 174, 96));
-        JButton btnBack = createLuxuryButton("BACK TO LOGIN", new Color(52, 73, 94), new Color(44, 62, 80));
+        // Register Button
+        panelGbc.gridy = 11;
+        btnRegister = LuxuryUIComponents.createLuxuryButton("REGISTER", LuxuryUIComponents.BURGUNDY);
+        btnRegister.setPreferredSize(new Dimension(300, 45));
+        mainPanel.add(btnRegister, panelGbc);
 
-        buttonPanel.add(btnRegister);
-        buttonPanel.add(btnBack);
+        // Spacing
+        panelGbc.gridy = 12;
+        mainPanel.add(Box.createVerticalStrut(10), panelGbc);
 
-        registerCard.add(headerPanel, BorderLayout.NORTH);
-        registerCard.add(formPanel, BorderLayout.CENTER);
-        registerCard.add(buttonPanel, BorderLayout.SOUTH);
+        // Back to Login Button
+        panelGbc.gridy = 13;
+        btnLogin = LuxuryUIComponents.createLuxuryButton("BACK TO LOGIN", LuxuryUIComponents.DARK_NAVY);
+        btnLogin.setPreferredSize(new Dimension(300, 45));
+        mainPanel.add(btnLogin, panelGbc);
 
-        // Close button
-        JButton btnClose = new JButton("✕");
-        btnClose.setFont(new Font("Arial", Font.BOLD, 20));
-        btnClose.setForeground(Color.WHITE);
-        btnClose.setBackground(new Color(231, 76, 60, 150));
-        btnClose.setBorderPainted(false);
-        btnClose.setFocusPainted(false);
-        btnClose.setPreferredSize(new Dimension(50, 50));
-        btnClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnClose.addActionListener(e -> {
+        // ADD Panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(mainPanel, gbc);
+
+        // Event
+        btnRegister.addActionListener(e -> doRegister());
+        btnLogin.addActionListener(e -> {
             new LoginFrame().setVisible(true);
-            dispose();
+            this.dispose();
         });
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        topPanel.setOpaque(false);
-        topPanel.add(btnClose);
-
-        // Layout
-        setLayout(new BorderLayout());
-        add(mainPanel, BorderLayout.CENTER);
-        
-        JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(1200, 700));
-        
-        mainPanel.setBounds(0, 0, 1200, 700);
-        registerCard.setBounds(375, 50, 450, 600);
-        topPanel.setBounds(0, 0, 1200, 60);
-        
-        layeredPane.add(mainPanel, Integer.valueOf(0));
-        layeredPane.add(registerCard, Integer.valueOf(1));
-        layeredPane.add(topPanel, Integer.valueOf(2));
-        
-        setContentPane(layeredPane);
-
-        // Event handlers
-        btnRegister.addActionListener(e -> registerUser());
-        btnBack.addActionListener(e -> {
-            new LoginFrame().setVisible(true);
-            dispose();
-        });
-
-        getRootPane().setDefaultButton(btnRegister);
+        // Enter key
+        tfFullName.addActionListener(e -> tfUsername.requestFocus());
+        tfUsername.addActionListener(e -> pfPassword.requestFocus());
+        pfPassword.addActionListener(e -> doRegister());
     }
 
-    private JTextField createStyledTextField() {
-        JTextField field = new JTextField(20);
-        field.setFont(new Font("Arial", Font.PLAIN, 14));
-        field.setBackground(new Color(255, 255, 255, 30));
-        field.setForeground(Color.WHITE);
-        field.setCaretColor(Color.WHITE);
-        field.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(212, 175, 55, 100), 1),
-            BorderFactory.createEmptyBorder(10, 15, 10, 15)
-        ));
-        return field;
-    }
+    private void doRegister() {
+        String fullName = tfFullName.getText().trim();
+        String username = tfUsername.getText().trim();
+        String password = new String(pfPassword.getPassword());
 
-    private JPasswordField createStyledPasswordField() {
-        JPasswordField field = new JPasswordField(20);
-        field.setFont(new Font("Arial", Font.PLAIN, 14));
-        field.setBackground(new Color(255, 255, 255, 30));
-        field.setForeground(Color.WHITE);
-        field.setCaretColor(Color.WHITE);
-        field.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(212, 175, 55, 100), 1),
-            BorderFactory.createEmptyBorder(10, 15, 10, 15)
-        ));
-        return field;
-    }
-
-    private JButton createLuxuryButton(String text, Color bgColor, Color hoverColor) {
-        JButton button = new JButton(text) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                
-                if (getModel().isPressed()) {
-                    g2d.setColor(hoverColor.darker());
-                } else if (getModel().isRollover()) {
-                    g2d.setColor(hoverColor);
-                } else {
-                    g2d.setColor(bgColor);
-                }
-                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
-                
-                super.paintComponent(g);
-            }
-        };
-        button.setFont(new Font("Arial", Font.BOLD, 14));
-        button.setForeground(Color.WHITE);
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(200, 45));
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        return button;
-    }
-
-    private void registerUser() {
-        String username = txtUsername.getText().trim();
-        String password = new String(txtPassword.getPassword()).trim();
-        String fullName = txtFullName.getText().trim();
-
-        if (username.isEmpty() || password.isEmpty() || fullName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                "All fields are required!", 
-                "Validation Error", 
-                JOptionPane.WARNING_MESSAGE);
+        if (fullName.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            showLuxuryMessage("All fields are required!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        User user = new User(username, password, fullName, "CUSTOMER");
+        User u = new User(fullName, username, password, "CUSTOMER");
 
-        if (userDAO.register(user)) {
-            JOptionPane.showMessageDialog(this, 
-                "Account created successfully!\nWelcome to our luxury hotel.", 
-                "Success", 
-                JOptionPane.INFORMATION_MESSAGE);
-            dispose();
+        UserDAO dao = new UserDAO();
+        boolean success = dao.register(u);
+
+        if (success) {
+            showLuxuryMessage("Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             new LoginFrame().setVisible(true);
+            dispose();
         } else {
-            JOptionPane.showMessageDialog(this, 
-                "Failed to create account!\nUsername may already exist.", 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
+            showLuxuryMessage("Username already exists!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void showLuxuryMessage(String msg, String title, int type) {
+        UIManager.put("OptionPane.background", LuxuryUIComponents.CREAM);
+        UIManager.put("Panel.background", LuxuryUIComponents.CREAM);
+        UIManager.put("OptionPane.messageForeground", LuxuryUIComponents.DARK_NAVY);
+
+        JOptionPane.showMessageDialog(this, msg, title, type);
     }
 }
